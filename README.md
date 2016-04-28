@@ -2,9 +2,9 @@
 Web encoder application to encode image in bpg with the libbpg.org library from Fabrice Bellard (http://bellard.org/bpg).
 The tool is available online at http://webencoder.libbpg.org/
 
+This is the first open-source release of the project. There may be differences with the online version avaiblable at http://webencoder.libbpg.org/. These differences will disapear with time.
 
-
-LICENSE :
+# LICENSE 
 The libbpg is released under GPLv2.0 license : see http://bellard.org/bpg
 Spring and spring-boot are released under Apache v2.0 license : https://github.com/spring-projects/spring-boot/blob/master/LICENSE.txt
 JQUery is released under the the jquery license : https://github.com/jquery/jquery/blob/master/LICENSE.txt
