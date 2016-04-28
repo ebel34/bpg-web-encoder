@@ -1,0 +1,119 @@
+version =  appVersion
+buildTimestamp = new Date().format("yyyyMMdd-HH:mm:ss.SSS")
+
+buildscript {
+	ext {
+		springBootVersion = '1.3.3.RELEASE'
+	}
+    repositories {
+        jcenter()
+        maven { url "http://repo.spring.io/snapshot" }
+        maven { url "http://repo.spring.io/milestone" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath 'org.hidetake:gradle-ssh-plugin:1.1.3'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'spring-boot'
+apply plugin: 'eclipse'
+apply plugin: 'org.hidetake.ssh'
+
+
+jar {
+    baseName = appName
+    version =  ""
+}
+
+repositories {
+    jcenter()
+    maven { url "http://repo.spring.io/snapshot" }
+    maven { url "http://repo.spring.io/milestone" }
+}
+
+dependencies {
+    compile files ("lib/kaptcha-2.3.2.jar")
+    compile("commons-io:commons-io:2.4")
+	compile("org.apache.commons:commons-lang3:3.4")
+	compile("commons-validator:commons-validator:1.5.0")
+    compile('com.h2database:h2:1.4.191')	
+	compile("com.fasterxml.jackson.core:jackson-databind")
+    compile("org.springframework:spring-messaging")
+	compile("org.springframework.boot:spring-boot-starter-actuator")
+    compile("org.springframework.boot:spring-boot-starter-batch")
+	compile("org.springframework.boot:spring-boot-starter-data-jpa")
+	compile("org.springframework.boot:spring-boot-devtools")
+    compile("org.springframework.boot:spring-boot-starter-freemarker")
+    // compile("org.springframework.boot:spring-boot-starter-jooq")
+    compile("org.springframework.boot:spring-boot-starter-logging")
+    compile("org.springframework.boot:spring-boot-starter-tomcat")
+	compile("org.springframework.boot:spring-boot-starter-web")
+	compile("org.springframework.boot:spring-boot-starter-websocket")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+}
+
+processResources {
+	filesMatching('version.properties') { expand(project.properties) }
+}
+
+task initExport << {
+	file("$buildDir/distributions").mkdirs()
+	print "$projectDir"
+	FileTree tree = fileTree(dir : projectDir, includes: ['src/**','lib/**','build.gradle','gradle.properties'] )
+}
+
+
+task zipProject (type: Zip) {
+	from fileTree(dir : projectDir, includes: ['src/**','lib/**','build.gradle','gradle.properties'] )
+	version ""
+}
+
+task exportProject(dependsOn : [initExport,zipProject]) << {
+	println("create export archive to : $buildDir/distributions/${appName}.zip")
+}
+
+
+ssh.settings {
+	// dryRun = project.hasProperty('dryRun')
+	knownHosts = allowAnyHosts
+}
+
+
+
+remotes {
+	ovhvps {
+		host = 'vpsvps202795.ovh.net'
+		user = 'root'
+		identity = file('/home/ebellard/.ssh/id_rsa')
+	}
+	
+}
+
+def buildRemote(h,u) {
+	def theRemote = new org.hidetake.groovy.ssh.core.Remote("test")
+	theRemote.host = h
+	theRemote.user = u
+	theRemote.identity = file('/home/ebellard/.ssh/id_rsa')
+	return theRemote
+}
+
+def buildRemote2(h,u) {
+	def theRemote = new org.hidetake.groovy.ssh.core.Remote([host : h, user : u, identity : file('/home/ebellard/.ssh/id_rsa')])
+	return theRemote
+}
+
+
+task checkVPS << {
+  ssh.run {
+    session(buildRemote2('vps202795.ovh.net','root')) {
+    	execute ("ls -l /usr/local/exploitation/bpg-generator")
+    }
+  }
+}
+
+
+
+
+

@@ -1,0 +1,6 @@
+package org.bellard.bpg.model;
+
+public enum ProcessEvent {
+
+	NEW_FILE, NEW_FILE_CHECKED, FILE_CHECK_FAILED, FILE_CONVERTED, FILE_CONVERTION_FAILED, NOTIFICATION_DONE
+}
