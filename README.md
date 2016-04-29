@@ -5,7 +5,7 @@ The tool is available online at http://webencoder.libbpg.org/
 This is the first open-source release of the project. There may be differences with the online version avaiblable at http://webencoder.libbpg.org/. These differences will disapear with time.
 
 # LICENSE 
-The bpe web encoder is is released under Apache License 2.0.
+The bpg web encoder is is released under Apache License 2.0.
 
 The libbpg is released under BSD, LGPL and GPSL licenses : see http://bellard.org/bpg
 
