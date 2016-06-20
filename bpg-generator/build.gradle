@@ -75,45 +75,4 @@ task exportProject(dependsOn : [initExport,zipProject]) << {
 }
 
 
-ssh.settings {
-	// dryRun = project.hasProperty('dryRun')
-	knownHosts = allowAnyHosts
-}
-
-
-
-remotes {
-	ovhvps {
-		host = 'vpsvps202795.ovh.net'
-		user = 'root'
-		identity = file('/home/ebellard/.ssh/id_rsa')
-	}
-	
-}
-
-def buildRemote(h,u) {
-	def theRemote = new org.hidetake.groovy.ssh.core.Remote("test")
-	theRemote.host = h
-	theRemote.user = u
-	theRemote.identity = file('/home/ebellard/.ssh/id_rsa')
-	return theRemote
-}
-
-def buildRemote2(h,u) {
-	def theRemote = new org.hidetake.groovy.ssh.core.Remote([host : h, user : u, identity : file('/home/ebellard/.ssh/id_rsa')])
-	return theRemote
-}
-
-
-task checkVPS << {
-  ssh.run {
-    session(buildRemote2('vps202795.ovh.net','root')) {
-    	execute ("ls -l /usr/local/exploitation/bpg-generator")
-    }
-  }
-}
-
-
-
-
 
