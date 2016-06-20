@@ -24,7 +24,7 @@
     </blockquote>
     <br>
     <!-- The file upload form used as target for the file upload widget -->
-    <form id="fileupload" action="//uploads" method="POST" enctype="multipart/form-data">
+    <form id="fileupload" action="/uploads" method="POST" enctype="multipart/form-data">
         <!-- The fileupload-buttonbar contains buttons to add/delete files and start/cancel the upload -->
         <div class="row fileupload-buttonbar">
 
@@ -81,10 +81,11 @@
         </div>
         <div class="panel-body">
             <ul>
-                <li><strong>News : </strong>usage of libbpg <strong>0.9.6</strong> and bpg encoding options.</li>
+				<li><strong>News : </strong>The BPG Web Encoder is now released under Apache v2 public licence and is published @<a href="https://github.com/ebel34/bpg-web-encoder/">github</a>.</li>
+                <li>Usage of libbpg <strong>0.9.6</strong> and bpg encoding options.</li>
                 <li>The maximum file size for uploads is <strong>6 MB</strong>.</li>
                 <li>The maximum file count per captcha identification is <strong>10</strong>.</li>
-                <li>Only image files (<strong>JPG, GIF, PNG</strong>) are allowed.</li>
+                <li>Only image files (<strong>JPG, PNG</strong>) are allowed.</li>
                 <li>Encoded and uploaded files will be deleted automatically <strong>10 minutes</strong> after the encoding end.</li>
                 <li>3 minutes encoding timeout. It may  be an issue with image data close to the maximum allowed size.</li>
                 <li>The application is hosted in a one core cpu openstack container. The encoding time is therefore <strong>SLOW</strong>.</li>

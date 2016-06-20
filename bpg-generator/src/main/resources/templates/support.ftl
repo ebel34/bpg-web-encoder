@@ -31,6 +31,8 @@
 			<li>The apache foundation, the eclipse foundation and all the others.</li>
 		</ul>		
 		Feel free to contact us @<a href="mailto:promotebpg@gmail.com">Promote BPG</a>.
+		<br>
+		The BPG Web Encoder is released under Apache v2 public licence and is published @<a href="https://github.com/ebel34/bpg-web-encoder/">github</a>.
 	</p>
     </blockquote>
 <#include "*/footer.ftl">
